@@ -4,7 +4,7 @@ import { BsTwitter } from 'react-icons/bs'; // Twitter logo icon
 
 function Sidebar() {
   return (
-    <div className="w-1/4 h-screen flex flex-col p-4 items-start">
+    <div className="w-1/6 h-screen flex flex-col p-4 items-start">
       {/* Twitter Logo */}
       <div className="text-2xl font-bold mb-6">
         <BsTwitter className="text-blue-500 w-10 h-10" />

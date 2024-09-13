@@ -14,7 +14,7 @@ function Signup() {
         const provider = new BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
         console.log("Connected to MetaMask with address:", signer.address);
-        return signer.address; // Return wallet address after connecting
+        return signer.address;
       } else {
         alert('Please install MetaMask');
       }
@@ -26,13 +26,12 @@ function Signup() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    
+
     const walletAddress = await connectToMetamask();
     if (!walletAddress) {
-      return; // If MetaMask is not connected, stop the signup process
+      return;
     }
 
-    // Proceed with signup only after MetaMask is connected
     try {
       const response = await fetch('http://localhost:3001/api/signup', {
         method: 'POST',
@@ -54,32 +53,43 @@ function Signup() {
   };
 
   return (
-    <div>
-      <h2>Signup</h2>
-      <form onSubmit={handleSignup}>
-        <input 
-          type="text" 
-          value={username} 
-          onChange={(e) => setUsername(e.target.value)} 
-          placeholder="Username" 
-          required 
-        />
-        <input 
-          type="email" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)} 
-          placeholder="Email" 
-          required 
-        />
-        <input 
-          type="password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
-          placeholder="Password" 
-          required 
-        />
-        <button type="submit">Signup</button>
-      </form>
+    <div className="w-3/5 min-h-screen bg-white text-white flex flex-col items-center py-10 mt-32 ml-[100px]">
+      <div className="bg-cyan-400 p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-center text-2xl font-bold text-white mb-6">Signup</h2>
+        <form onSubmit={handleSignup}>
+          <input 
+            type="text" 
+            value={username} 
+            onChange={(e) => setUsername(e.target.value)} 
+            placeholder="Username"
+            className="w-full px-4 py-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            required 
+          />
+          <input 
+            type="email" 
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)} 
+            placeholder="Email"
+            className="w-full px-4 py-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            required 
+          />
+          <input 
+            type="password" 
+            value={password} 
+            onChange={(e) => setPassword(e.target.value)} 
+            placeholder="Password"
+            className="w-full px-4 py-3 mb-6 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            required 
+          />
+          <button 
+            type="submit" 
+            className="w-full py-3 bg-cyan-300 text-white font-semibold rounded-lg hover:bg-cyan-300 transition-colors duration-300"
+          >
+            Signup
+          </button>
+          <a href='/login' className='hover:text-black'>Already have an account Login Here</a>
+        </form>
+      </div>
     </div>
   );
 }

@@ -25,33 +25,49 @@ function Login() {
   };
 
   return (
-    <div className="w-3/5 min-h-screen bg-white text-black flex flex-col items-center py-10 mt-32 ml-[100px]">
-      <div className="bg-cyan-400 p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-center text-2xl font-bold text-gray-700 mb-6">Login</h2>
-        <form onSubmit={handleLogin}>
-          <input 
-            type="email" 
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)} 
-            placeholder="Email"
-            className="w-full px-4 py-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            required 
-          />
-          <input 
-            type="password" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
-            placeholder="Password"
-            className="w-full px-4 py-3 mb-6 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            required 
-          />
-          <button 
-            type="submit" 
-            className="w-full py-3 bg-cyan-300 text-white font-semibold rounded-lg  transition-colors duration-300"
-          >
-            Login
-          </button>
-          <a href="/" className='hover:text-black'>Are you new here Create an account</a>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-xs">
+        <form 
+          onSubmit={handleLogin} 
+          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        >
+          <div className="mb-4">
+            <img
+              src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png"
+              alt="Twitter logo"
+              className="mx-auto mb-4"
+              style={{ width: '50px', height: '50px' }}
+            />
+            <h2 className="text-center text-xl font-bold mb-6">Log in to Twitter</h2>
+            <input 
+              type="email" 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
+              placeholder="Phone, email, or username"
+              className="w-full px-3 py-2 mb-4 border rounded text-sm"
+              required 
+            />
+            <input 
+              type="password" 
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)} 
+              placeholder="Password"
+              className="w-full px-3 py-2 mb-6 border rounded text-sm"
+              required 
+            />
+            <button 
+              type="submit" 
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Log in
+            </button>
+          </div>
+          <div className=" text-center">
+            
+            <a href="/" className=" text-center font-bold text-sm text-blue-500 hover:text-blue-800">
+              Sign up for Twitter
+            </a>
+          </div>
         </form>
       </div>
     </div>

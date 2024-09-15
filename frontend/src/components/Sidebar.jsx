@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaHome, FaHashtag, FaBell, FaEnvelope, FaBookmark, FaList, FaUser, FaEllipsisH } from 'react-icons/fa';
 import { BsTwitter } from 'react-icons/bs'; // Twitter logo icon
+import { Link } from 'react-router-dom';
 
 function Sidebar() {
   return (
@@ -16,10 +17,10 @@ function Sidebar() {
           <FaHome className="text-2xl" />
           <span>Home</span>
         </a>
-        <a href="#" className="flex items-center space-x-4 text-xl text-black hover:text-blue-500">
+        <Link to="/explore" className="flex items-center space-x-4 text-xl text-black hover:text-blue-500">
           <FaHashtag className="text-2xl" />
           <span>Explore</span>
-        </a>
+        </Link>
         <a href="#" className="flex items-center space-x-4 text-xl text-black hover:text-blue-500">
           <FaBell className="text-2xl" />
           <span>Notifications</span>

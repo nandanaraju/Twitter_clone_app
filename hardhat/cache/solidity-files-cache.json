@@ -2,11 +2,11 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/navya/Twitter_clone_app/hardhat/contracts/TwitterContract.sol": {
-      "lastModificationDate": 1726216811129,
-      "contentHash": "2dae963e841626ae21a686e044c6cab3",
+      "lastModificationDate": 1726380968377,
+      "contentHash": "c0ac71c0b1c2fa8f1d4907c503ad7650",
       "sourceName": "contracts/TwitterContract.sol",
       "solcConfig": {
-        "version": "0.8.20",
+        "version": "0.8.24",
         "settings": {
           "evmVersion": "paris",
           "optimizer": {

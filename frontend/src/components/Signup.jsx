@@ -53,7 +53,7 @@ function Signup() {
   };
 
   return (
-    <div className="w-3/5 min-h-screen bg-white text-white flex flex-col items-center py-10 mt-32 ml-[100px]">
+    <div className="w-3/5 min-h-screen bg-white text-black flex flex-col items-center py-10 mt-32 ml-[100px]">
       <div className="bg-cyan-400 p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-center text-2xl font-bold text-white mb-6">Signup</h2>
         <form onSubmit={handleSignup}>

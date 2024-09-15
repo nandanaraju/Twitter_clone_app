@@ -5,6 +5,7 @@ import { TwitterModuleTweet } from '../scdata/deployed_addresses.json'; // Contr
 
 function App() {
   const [tweetContent, setTweetContent] = useState('');
+  const [commentContent, setCommentContent] = useState('');
   const [tweets, setTweets] = useState([]);
   const [provider, setProvider] = useState(null);
   const [account, setAccount] = useState(null);
@@ -28,11 +29,12 @@ function App() {
           // Load existing tweets
           const allTweets = await tweetContract.getAllTweets();
 
-          // Convert BigInt (timestamp) to number and format tweets
           const formattedTweets = allTweets.map(tweet => ({
             content: tweet.content,
             author: tweet.author,
-            timestamp: Number(tweet.timestamp), // Convert BigInt to number
+            timestamp: Number(tweet.timestamp),
+            likeCount: Number(tweet.likeCount),
+            retweetCount: Number(tweet.retweetCount),
           }));
 
           setTweets(formattedTweets);
@@ -46,7 +48,38 @@ function App() {
     connectToMetamask();
   }, []);
 
-  // Submit tweet
+  const likeTweet = async (tweetId) => {
+    try {
+      const tx = await contract.likeTweet(tweetId);
+      await tx.wait();
+      alert('Tweet liked successfully!');
+    } catch (err) {
+      console.error('Failed to like tweet:', err);
+    }
+  };
+
+  const commentOnTweet = async (tweetId) => {
+    if (!commentContent) return;
+    try {
+      const tx = await contract.commentOnTweet(tweetId, commentContent);
+      await tx.wait();
+      alert('Comment added successfully!');
+      setCommentContent('');
+    } catch (err) {
+      console.error('Failed to comment on tweet:', err);
+    }
+  };
+
+  const retweet = async (tweetId, content) => {
+    try {
+      const tx = await contract.retweet(tweetId, content);
+      await tx.wait();
+      alert('Retweeted successfully!');
+    } catch (err) {
+      console.error('Failed to retweet:', err);
+    }
+  };
+
   const submitTweet = async (e) => {
     e.preventDefault();
     if (!tweetContent || !contract) return;
@@ -55,11 +88,12 @@ function App() {
       const tx = await contract.postTweet(tweetContent);
       await tx.wait();
 
-      // Update tweets after successful transaction
       const newTweet = {
         content: tweetContent,
         author: account,
-        timestamp: Math.floor(Date.now() / 1000), // Get Unix timestamp in seconds
+        timestamp: Math.floor(Date.now() / 1000),
+        likeCount: 0,
+        retweetCount: 0,
       };
       setTweets([...tweets, newTweet]);
       setTweetContent('');
@@ -123,11 +157,24 @@ function App() {
                 <p className="text-sm text-gray-400">{new Date(tweet.timestamp * 1000).toLocaleString()}</p>
                 <p className="text-base mt-2">{tweet.content}</p>
                 <div className="mt-3 flex space-x-4 text-gray-600">
-                  {/* Add some icons for user interactions */}
-                  <span className="cursor-pointer">💬</span>
-                  <span className="cursor-pointer">❤️</span>
-                  <span className="cursor-pointer">🔗</span>
-                  <span className="cursor-pointer">🗑️</span>
+                  <span className="cursor-pointer" onClick={() => likeTweet(index)}>❤️ {tweet.likeCount}</span>
+                  <span className="cursor-pointer" onClick={() => retweet(index, tweet.content)}>🔗 Retweet</span>
+                  <span className="cursor-pointer">💬 Comment</span>
+                </div>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    value={commentContent}
+                    onChange={(e) => setCommentContent(e.target.value)}
+                    placeholder="Write a comment"
+                    className="w-full p-2 bg-gray-200 rounded-md"
+                  />
+                  <button
+                    onClick={() => commentOnTweet(index)}
+                    className="bg-blue-500 text-white p-2 rounded-md mt-2"
+                  >
+                    Submit Comment
+                  </button>
                 </div>
               </div>
             </div>

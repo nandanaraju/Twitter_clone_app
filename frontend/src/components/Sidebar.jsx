@@ -13,7 +13,7 @@ function Sidebar() {
 
       {/* Navigation */}
       <nav className="space-y-6 w-full font-bold text-black">
-        <a href="#" className="flex items-center space-x-4 text-xl text-black hover:text-blue-500">
+        <a href="/home" className="flex items-center space-x-4 text-xl text-black hover:text-blue-500">
           <FaHome className="text-2xl" />
           <span>Home</span>
         </a>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import { abi } from "../scdata/TweetContract.json"; // TweetContract ABI
 import { TwitterModuleTweet } from "../scdata/deployed_addresses.json"; // Contract address
@@ -35,13 +35,27 @@ function App() {
           // Load existing tweets
           const allTweets = await tweetContract.getAllTweets();
 
-          const formattedTweets = allTweets.map((tweet) => ({
-            content: tweet.content,
-            author: tweet.author,
-            timestamp: Number(tweet.timestamp),
-            likeCount: Number(tweet.likeCount),
-            retweetCount: Number(tweet.retweetCount),
-          }));
+          // For each tweet, also fetch its comments
+          const formattedTweets = await Promise.all(
+            allTweets.map(async (tweet, index) => {
+              const comments = await tweetContract.getComments(index);
+
+              const formattedComments = comments.map((comment) => ({
+                content: comment.commentContent,
+                commenter: comment.commenter,
+                timestamp: Number(comment.timestamp),
+              }));
+
+              return {
+                content: tweet.content,
+                author: tweet.author,
+                timestamp: Number(tweet.timestamp),
+                likeCount: Number(tweet.likeCount),
+                retweetCount: Number(tweet.retweetCount),
+                comments: formattedComments, // Store the fetched comments
+              };
+            })
+          );
 
           setTweets(formattedTweets);
         } catch (error) {
@@ -71,6 +85,21 @@ function App() {
       await tx.wait();
       alert("Comment added successfully!");
       setCommentContent("");
+
+      // Reload comments for the tweet after successful submission
+      const comments = await contract.getComments(tweetId);
+      const formattedComments = comments.map((comment) => ({
+        content: comment.commentContent,
+        commenter: comment.commenter,
+        timestamp: Number(comment.timestamp),
+      }));
+
+      // Update the comments for the specific tweet
+      setTweets((prevTweets) =>
+        prevTweets.map((tweet, index) =>
+          index === tweetId ? { ...tweet, comments: formattedComments } : tweet
+        )
+      );
     } catch (err) {
       console.error("Failed to comment on tweet:", err);
     }
@@ -100,6 +129,7 @@ function App() {
         timestamp: Math.floor(Date.now() / 1000),
         likeCount: 0,
         retweetCount: 0,
+        comments: [], // No comments initially
       };
       setTweets([...tweets, newTweet]);
       setTweetContent("");
@@ -109,7 +139,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-black flex flex-col items-center ">
+    <div className="min-h-screen bg-white text-black flex flex-col items-center w-[700px] ">
       <h1 className="text-4xl font-bold mb-6">Decentralized Tweet App</h1>
 
       <button
@@ -192,6 +222,25 @@ function App() {
                   </span>
                   <span className="cursor-pointer">💬 Comment</span>
                 </div>
+
+                {/* Display comments for the tweet */}
+                {tweet.comments && tweet.comments.length > 0 && (
+                  <div className="mt-4">
+                    <h3 className="font-semibold">Comments</h3>
+                    {tweet.comments.map((comment, idx) => (
+                      <div key={idx} className="mt-2">
+                        <p className="text-sm">
+                          {comment.commenter.slice(0, 6)}...
+                          {comment.commenter.slice(-4)}: {comment.content}
+                        </p>
+                        <p className="text-xs text-gray-400">
+                          {new Date(comment.timestamp * 1000).toLocaleString()}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
                 <div className="mt-2">
                   <input
                     type="text"

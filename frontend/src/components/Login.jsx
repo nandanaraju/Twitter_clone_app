@@ -1,26 +1,37 @@
+// Login.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(''); // State for error messages
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const response = await fetch('http://localhost:3001/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
+    setError(''); // Reset error message
 
-    const data = await response.json();
-    if (response.ok) {
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('walletAddress', data.walletAddress);
-      navigate('/home');
-    } else {
-      alert('Login failed');
+    try {
+      const response = await fetch('http://localhost:3001/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('walletAddress', data.walletAddress);
+        localStorage.setItem('username', data.username); // Store username
+        navigate('/profile'); // Redirect to profile page after login
+      } else {
+        // Display specific error message
+        setError(data.msg || 'Login failed');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      setError('Login failed.');
     }
   };
 
@@ -39,6 +50,11 @@ function Login() {
               style={{ width: '50px', height: '50px' }}
             />
             <h2 className="text-center text-xl font-bold mb-6">Log in to Twitter</h2>
+            {error && (
+              <div className="mb-4 text-red-500 text-sm text-center">
+                {error}
+              </div>
+            )}
             <input 
               type="email" 
               value={email} 
@@ -62,9 +78,8 @@ function Login() {
               Log in
             </button>
           </div>
-          <div className=" text-center">
-            
-            <a href="/" className=" text-center font-bold text-sm text-blue-500 hover:text-blue-800">
+          <div className="text-center">
+            <a href="/" className="font-bold text-sm text-blue-500 hover:text-blue-800">
               Sign up for Twitter
             </a>
           </div>

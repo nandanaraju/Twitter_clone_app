@@ -5,8 +5,8 @@ import Signup from './components/Signup';
 import Sidebar from './components/Sidebar';
 import Middle from './components/Middle';
 import Right from './components/Right';
-import Explore from './components/Explore';  // Import Explore component
-// import Profile from './components/Profile';  // Assuming there's a Profile component
+import Explore from './components/Explore';  
+import Profile from './components/Profile';
 
 function App() {
   return (
@@ -21,9 +21,9 @@ function App() {
             <Routes>
               <Route path="/" element={<Signup />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="/home" element={<Middle />} />
-              <Route path="/explore" element={<Explore />} />  {/* Explore Route */}
-              {/* <Route path="/profile" element={<Profile />} />  Profile Route */}
+              <Route path="/explore" element={<Explore />} />  
             </Routes>
           </div>
           

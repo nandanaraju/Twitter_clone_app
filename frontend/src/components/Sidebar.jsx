@@ -37,7 +37,7 @@ function Sidebar() {
           <FaList className="text-2xl" />
           <span>Lists</span>
         </a>
-        <a href="#" className="flex items-center space-x-4 text-xl text-black hover:text-blue-500">
+        <a href="/profile" className="flex items-center space-x-4 text-xl text-black hover:text-blue-500">
           <FaUser className="text-2xl" />
           <span>Profile</span>
         </a>
@@ -47,10 +47,7 @@ function Sidebar() {
         </a>
       </nav>
 
-      {/* Tweet Button */}
-      <button className="mt-8 w-full bg-blue-500 text-white py-2 rounded-full text-xl hover:bg-blue-600">
-        Tweet
-      </button>
+    
     </div>
   );
 }

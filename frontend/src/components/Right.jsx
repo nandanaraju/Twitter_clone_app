@@ -1,8 +1,12 @@
 import React from 'react';
+import Navbar from './Navbar';
 
 function Right() {
   return (
-    <div className="w-1/4 bg-gray-50 h-screen p-4">
+    <>
+    
+    <div className="w-1/4 bg-white h-screen p-4">
+    <Navbar/>
       {/* Search Bar */}
       <div className="mb-6">
         <input
@@ -44,6 +48,7 @@ function Right() {
         <p className="text-sm text-gray-500">Non-Fungible Tokens (NFTs) redefine digital ownership in the art world.</p>
       </div>
     </div>
+    </>
   );
 }
 

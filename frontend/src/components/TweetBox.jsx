@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import { abi } from "../scdata/TweetContract.json"; // TweetContract ABI
 import { TwitterModuleTweet } from "../scdata/deployed_addresses.json"; // Contract address
-import Navbar from "./Navbar";
 
 function App() {
   const [tweetContent, setTweetContent] = useState("");

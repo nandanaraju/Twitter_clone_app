@@ -62,7 +62,7 @@ function Signup() {
         localStorage.setItem('token', data.token);
         localStorage.setItem('username', data.username);
         localStorage.setItem('walletAddress', data.walletAddress);
-        navigate('/profile'); // Redirect to profile page
+        navigate('/login'); // Redirect to profile page
       } else {
         // Display specific error message
         setError(data.msg || 'Signup failed');

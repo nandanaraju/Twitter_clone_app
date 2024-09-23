@@ -117,6 +117,8 @@ Make sure both the frontend and backend are running on their respective ports, a
 
 Check out our live demo! 🎬👇
 
+(https://drive.google.com/file/d/1qTxmiDjU9MmFr1wye-tt_3vgFaSUBMdM/view?usp=sharing)
+
 
 
 ## Contributing

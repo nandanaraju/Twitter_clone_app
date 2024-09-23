@@ -117,7 +117,7 @@ Make sure both the frontend and backend are running on their respective ports, a
 
 Check out our live demo! 🎬👇
 
-[![Watch the video](https://github.com/nandanaraju/Certificate_DApp/blob/main/ui_1/src/assets/images/video.jpeg)](https://drive.google.com/file/d/167RLsBaZJdEXqf8eKmDptA54WelqqrYX/view?usp=sharing)
+[![Watch the video](/home/navya/Twitter_clone_app_latest/Twitter_clone_app/frontend/src/assets/images/twit.png)](https://drive.google.com/file/d/167RLsBaZJdEXqf8eKmDptA54WelqqrYX/view?usp=sharing)
 
 ## Contributing
 

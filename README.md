@@ -113,6 +113,12 @@ Make sure both the frontend and backend are running on their respective ports, a
   cd hardhat && npx hardhat node
   ```
 
+## 🎥 Demo Video
+
+Check out our live demo! 🎬👇
+
+[![Watch the video](https://github.com/nandanaraju/Certificate_DApp/blob/main/ui_1/src/assets/images/video.jpeg)](https://drive.google.com/file/d/167RLsBaZJdEXqf8eKmDptA54WelqqrYX/view?usp=sharing)
+
 ## Contributing
 
 Feel free to fork this repository and submit pull requests. Contributions and improvements are always welcome!
